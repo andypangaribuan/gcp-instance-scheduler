@@ -13,3 +13,17 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Custom
+/env/local.env
+/binary/
+
+# IDE & Miscellaneous
+.idea/*
+!.idea/dictionaries/
+.DS_Store
+
+# files
+gcp-service-scheduler-config.tsv
+action.log
+error.log
