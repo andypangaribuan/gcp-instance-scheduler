@@ -34,6 +34,13 @@ func schedulerConfigHeader() string {
 
 
 func lineToSchedulerConfigModel(line string) model.SchedulerConfigModel {
+	isActive := func(txt string) bool {
+		if txt == "1" {
+			return true
+		}
+		return false
+	}
+
 	toDays := func(txt string) map[int]interface{} {
 		arr := strings.Split(txt, ",")
 		m := make(map[int]interface{}, 0)
@@ -51,16 +58,17 @@ func lineToSchedulerConfigModel(line string) model.SchedulerConfigModel {
 
 	arr := strings.Split(line, "\t")
 	return model.SchedulerConfigModel{
-		Name:               strings.TrimSpace(arr[0]),
-		ProjectId:          strings.TrimSpace(arr[1]),
-		Zone:               strings.TrimSpace(arr[2]),
-		Instance:           strings.TrimSpace(arr[3]),
-		Type:               strings.TrimSpace(arr[4]),
-		StartTime:          strings.TrimSpace(arr[5]),
-		StopTime:           strings.TrimSpace(arr[6]),
-		Days:               toDays(strings.TrimSpace(arr[7])),
-		ServiceAccountPath: strings.TrimSpace(arr[8]),
-		Description:        strings.TrimSpace(arr[9]),
+		Active:             isActive(arr[0]),
+		Name:               strings.TrimSpace(arr[1]),
+		ProjectId:          strings.TrimSpace(arr[2]),
+		Zone:               strings.TrimSpace(arr[3]),
+		Instance:           strings.TrimSpace(arr[4]),
+		Type:               strings.TrimSpace(arr[5]),
+		StartTime:          strings.TrimSpace(arr[6]),
+		StopTime:           strings.TrimSpace(arr[7]),
+		Days:               toDays(strings.TrimSpace(arr[8])),
+		ServiceAccountPath: strings.TrimSpace(arr[9]),
+		Description:        strings.TrimSpace(arr[10]),
 	}
 }
 

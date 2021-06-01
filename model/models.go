@@ -5,6 +5,7 @@ package model
 	Copyright andypangaribuan. All rights reserved.
    ============================================ */
 type SchedulerConfigModel struct {
+	Active             bool
 	Name               string
 	ProjectId          string
 	Zone               string

@@ -9,6 +9,7 @@ import "github.com/andypangaribuan/vision-go/vis"
    ============================================ */
 var (
 	ApiPort             int
+	PrintLog            bool
 	SchedulerDelay      int //in second
 	SchedulerConfigFile string
 	ActionLogFile       string
@@ -18,6 +19,7 @@ var (
 
 func Load() {
 	ApiPort = vis.Env.GetIntEnv("API_PORT")
+	PrintLog = vis.Env.GetBoolEnv("PRINT_LOG")
 	SchedulerDelay = vis.Env.GetIntEnv("SCHEDULER_DELAY")
 	SchedulerConfigFile = vis.Env.GetStr("SCHEDULER_CONFIG_FILE")
 	ActionLogFile = vis.Env.GetStr("ACTION_LOG_FILE")

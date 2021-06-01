@@ -7,6 +7,7 @@ Start and stop scheduler for compute engines and cloud sql on GCP
 
 
 ## Environment
+- PRINT_LOG : 1/0
 - SCHEDULER_DELAY : in second
 - SCHEDULER_CONFIG_FILE : must be existing path
 ```shell
@@ -26,9 +27,14 @@ configure this file on env: SCHEDULER_CONFIG_FILE
 
 ## Watch the log file  
 ```shell
+On Linux/Mac
 $ tail -f /your-directory/action.log  
 $ tail -f /your-directory/error.log  
 $ lnav /your-directory/action.log /your-directory/error.log
+
+On Windows
+using windows power shell
+$ type -wait {path to action.log or error.log}
 ```
 
 ## Build the project  
@@ -56,3 +62,11 @@ $ gcp-instance-scheduler.exe
 On linux
 $ ./gcp-instance-scheduler
 ```
+
+## API Endpoint
+POST Method
+- /private/time
+- /private/day
+- /private/clear-console
+- /private/log-status
+- /private/reverse-log-status

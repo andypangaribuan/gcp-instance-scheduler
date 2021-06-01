@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	cloud.google.com/go v0.82.0 // indirect
-	github.com/andypangaribuan/vision-go v1.0.5
+	github.com/andypangaribuan/vision-go v1.0.7
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/pkg/errors v0.9.1
 	golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a // indirect

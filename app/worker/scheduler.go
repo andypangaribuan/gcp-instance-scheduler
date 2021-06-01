@@ -28,12 +28,14 @@ func Scheduler() {
 
 
 		for idx, conf := range configs {
-			if _, ok := conf.Days[day]; ok {
-				if conf.StartTime == tm {
-					idxStarts = append(idxStarts, idx)
-				}
-				if conf.StopTime == tm {
-					idxStops = append(idxStops, idx)
+			if conf.Active {
+				if _, ok := conf.Days[day]; ok {
+					if conf.StartTime == tm {
+						idxStarts = append(idxStarts, idx)
+					}
+					if conf.StopTime == tm {
+						idxStops = append(idxStops, idx)
+					}
 				}
 			}
 		}
@@ -71,6 +73,18 @@ func doStartStop(configs []model.SchedulerConfigModel, idxStarts, idxStops []int
 		_, _ = f.WriteString(txt)
 	}
 
+	isFirstLog := true
+	printLog := func(txt string) {
+		if env.PrintLog {
+			if isFirstLog {
+				isFirstLog = false
+				fmt.Printf("\n\n")
+			}
+
+			fmt.Printf(txt)
+		}
+	}
+
 
 	for _, idx := range idxStarts {
 		config := configs[idx]
@@ -78,21 +92,29 @@ func doStartStop(configs []model.SchedulerConfigModel, idxStarts, idxStops []int
 		case "vm":
 			if err := helper.StartStopGCE(true, config); err == nil {
 				msg := fmt.Sprintf("%v starting vm success, %v", tmNow(), config.Name)
-				appendToFile(msg + "\n", actionLogFile)
+				msg += "\n"
+				appendToFile(msg, actionLogFile)
+				printLog(msg)
 			} else {
 				msg := fmt.Sprintf("%v starting vm failed, %v\n", tmNow(), config.Name)
 				msg += *vis.Log.Stack(err)
-				appendToFile(msg + "\n\n", errorLogFile)
+				msg += "\n\n"
+				appendToFile(msg, errorLogFile)
+				printLog(msg)
 			}
 
 		case "sql":
 			if err := helper.StartStopCloudSQL(true, config); err == nil {
 				msg := fmt.Sprintf("%v starting cloud sql success, %v", tmNow(), config.Name)
-				appendToFile(msg + "\n", actionLogFile)
+				msg += "\n"
+				appendToFile(msg, actionLogFile)
+				printLog(msg)
 			} else {
 				msg := fmt.Sprintf("%v starting cloud sql failed, %v\n", tmNow(), config.Name)
 				msg += *vis.Log.Stack(err)
-				appendToFile(msg + "\n\n", errorLogFile)
+				msg += "\n\n"
+				appendToFile(msg, errorLogFile)
+				printLog(msg)
 			}
 		}
 	}
@@ -104,23 +126,30 @@ func doStartStop(configs []model.SchedulerConfigModel, idxStarts, idxStops []int
 		case "vm":
 			if err := helper.StartStopGCE(false, config); err == nil {
 				msg := fmt.Sprintf("%v stopping vm success, %v", tmNow(), config.Name)
-				appendToFile(msg + "\n", actionLogFile)
+				msg += "\n"
+				appendToFile(msg, actionLogFile)
+				printLog(msg)
 			} else {
 				msg := fmt.Sprintf("%v stopping vm failed, %v\n", tmNow(), config.Name)
 				msg += *vis.Log.Stack(err)
-				appendToFile(msg+ "\n\n", errorLogFile)
+				msg += "\n\n"
+				appendToFile(msg, errorLogFile)
+				printLog(msg)
 			}
 
 		case "sql":
 			if err := helper.StartStopCloudSQL(false, config); err == nil {
 				msg := fmt.Sprintf("%v stopping cloud sql success, %v", tmNow(), config.Name)
-				appendToFile(msg + "\n", actionLogFile)
+				msg += "\n"
+				appendToFile(msg, actionLogFile)
+				printLog(msg)
 			} else {
 				msg := fmt.Sprintf("%v stopping cloud sql failed, %v\n", tmNow(), config.Name)
 				msg += *vis.Log.Stack(err)
-				appendToFile(msg+ "\n\n", errorLogFile)
+				msg += "\n\n"
+				appendToFile(msg, errorLogFile)
+				printLog(msg)
 			}
 		}
 	}
 }
-

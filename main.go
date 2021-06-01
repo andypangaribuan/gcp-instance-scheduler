@@ -28,5 +28,13 @@ func main() {
 
 
 func endpoints(e *api.EchoApi) {
-	e.POST("/private/time", ep_private.Time)
+	e.Group("/private", func(g *api.GroupApi) {
+		g.POSTS(map[string]api.HandlerFunc{
+			"/time":               ep_private.Time,
+			"/day":                ep_private.Day,
+			"/clear-console":      ep_private.ClearConsole,
+			"/log-status":         ep_private.LogStatus,
+			"/reverse-log-status": ep_private.ReverseLogStatus,
+		})
+	})
 }

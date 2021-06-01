@@ -9,14 +9,15 @@ var MapSchedulerConfig = []struct {
 	Index int
 	Name string
 }{
-	{Index: 0, Name: "NAME"},
-	{Index: 1, Name: "PROJECT_ID"},
-	{Index: 2, Name: "ZONE"},
-	{Index: 3, Name: "INSTANCE"},
-	{Index: 4, Name: "TYPE"},
-	{Index: 5, Name: "START_TIME"},
-	{Index: 6, Name: "STOP_TIME"},
-	{Index: 7, Name: "DAYS"},
-	{Index: 8, Name: "SERVICE_ACCOUNT_PATH"},
-	{Index: 9, Name: "DESCRIPTION"},
+	{Index: 0, Name: "IS_ACTIVE"},
+	{Index: 1, Name: "NAME"},
+	{Index: 2, Name: "PROJECT_ID"},
+	{Index: 3, Name: "ZONE"},
+	{Index: 4, Name: "INSTANCE"},
+	{Index: 5, Name: "TYPE"},
+	{Index: 6, Name: "START_TIME"},
+	{Index: 7, Name: "STOP_TIME"},
+	{Index: 8, Name: "DAYS"},
+	{Index: 9, Name: "SERVICE_ACCOUNT_PATH"},
+	{Index: 10, Name: "DESCRIPTION"},
 }
